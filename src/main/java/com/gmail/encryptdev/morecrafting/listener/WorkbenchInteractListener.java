@@ -8,6 +8,7 @@ import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
+import org.bukkit.event.block.Action;
 import org.bukkit.event.block.BlockPlaceEvent;
 import org.bukkit.event.inventory.InventoryCloseEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
@@ -33,12 +34,12 @@ public class WorkbenchInteractListener implements Listener {
         Player player = event.getPlayer();
 
         if (event.getClickedBlock() != null) {
-            if (event.getClickedBlock().hasMetadata(MoreCrafting.CRAFTING_META_DATA)) {
+            if (event.getClickedBlock().hasMetadata(MoreCrafting.CRAFTING_META_DATA) && event.getAction() == Action.RIGHT_CLICK_BLOCK) {
                 event.setCancelled(true);
 
                 if (event.getClickedBlock().hasMetadata(MoreCrafting.BLOCK_OWNER_META_DATA)) {
                     String owner = event.getClickedBlock().getMetadata(MoreCrafting.BLOCK_OWNER_META_DATA).get(0).asString();
-                    if(player.getUniqueId().toString().equals(owner)) {
+                    if (player.getUniqueId().toString().equals(owner)) {
                         AbstractInventory.openInventory(player, new WorkbenchInventory(true));
                         notPlace.add(player);
                     } else {
