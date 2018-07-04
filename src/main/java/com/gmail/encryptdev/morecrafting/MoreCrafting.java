@@ -75,6 +75,7 @@ public class MoreCrafting extends JavaPlugin {
         getServer().getPluginManager().registerEvents(new CounterInventoryListener(recipeManager), this);
         getServer().getPluginManager().registerEvents(new RecipeListInventoryListener(recipeManager), this);
         getServer().getPluginManager().registerEvents(new ShowRecipeListener(), this);
+        getServer().getPluginManager().registerEvents(new WorkbenchBreakListener(), this);
     }
 
     public JsonLoader getJsonLoader() {

@@ -35,8 +35,19 @@ public class WorkbenchInteractListener implements Listener {
         if (event.getClickedBlock() != null) {
             if (event.getClickedBlock().hasMetadata(MoreCrafting.CRAFTING_META_DATA)) {
                 event.setCancelled(true);
-                AbstractInventory.openInventory(player, new WorkbenchInventory(true));
-                notPlace.add(player);
+
+                if (event.getClickedBlock().hasMetadata(MoreCrafting.BLOCK_OWNER_META_DATA)) {
+                    String owner = event.getClickedBlock().getMetadata(MoreCrafting.BLOCK_OWNER_META_DATA).get(0).asString();
+                    if(player.getUniqueId().toString().equals(owner)) {
+                        AbstractInventory.openInventory(player, new WorkbenchInventory(true));
+                        notPlace.add(player);
+                    } else {
+                        player.sendMessage(MessageTranslator.getTranslatedMessage("not-owner"));
+                    }
+                } else {
+                    AbstractInventory.openInventory(player, new WorkbenchInventory(true));
+                    notPlace.add(player);
+                }
             }
 
         }

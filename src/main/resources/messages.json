@@ -35,5 +35,6 @@
   "recipe-not-exist": "Recipe with name {Name} doesn't exist",
   "list-item-output": "&eOutput: {Item}",
   "delete-successful": "You delete the item {Name}",
-  "delete-not-successful": "Can not delete item {Name}"
+  "delete-not-successful": "Can not delete item {Name}",
+  "not-owner": "You are not the owner from this workbench"
 }
