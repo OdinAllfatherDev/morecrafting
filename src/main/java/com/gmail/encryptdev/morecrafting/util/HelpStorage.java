@@ -7,6 +7,8 @@ import java.util.Map;
 
 /**
  * Created by EncryptDev
+ *
+ * This class, help to store any data
  */
 public class HelpStorage {
 

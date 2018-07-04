@@ -6,6 +6,8 @@ import org.bukkit.ChatColor;
 
 /**
  * Created by EncryptDev
+ *
+ * Translate all message
  */
 public class MessageTranslator {
 

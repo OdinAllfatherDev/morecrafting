@@ -28,12 +28,12 @@ public class CommandMC implements CommandExecutor {
                 if (hasStarPermission(player)) {
                     if (hasStarPermission(player)) {
                         player.sendMessage("§5§lMoreCrafting v" + MoreCrafting.getInstance().getDescription().getVersion() + " by EncryptDev");
-                        player.sendMessage("§aHelp? Join my discord: https://discord.gg/NUPDFR7");
-                        player.sendMessage("§aCommands:");
-                        player.sendMessage("§a/mc create - open the gui, to create a recipe");
-                        player.sendMessage("§a/mc list - list all recipes in a gui");
-                        player.sendMessage("§a/mc delete <name> - delete a recipe");
-                        player.sendMessage("§a/mc show <name> - show the recipe");
+                        player.sendMessage("§6§lMoreCrafting >> §aHelp? Join my discord: https://discord.gg/NUPDFR7");
+                        player.sendMessage("§6§lMoreCrafting >> §aCommands:");
+                        player.sendMessage("§6§lMoreCrafting >> §a/mc create - open the gui, to create a recipe");
+                        player.sendMessage("§6§lMoreCrafting >> §a/mc list - list all recipes in a gui");
+                        player.sendMessage("§6§lMoreCrafting >> §a/mc delete <name> - delete a recipe");
+                        player.sendMessage("§6§lMoreCrafting >> §a/mc show <name> - show the recipe");
                     }
                 }
             } else if (args.length == 1) {
@@ -44,13 +44,22 @@ public class CommandMC implements CommandExecutor {
                 }
             } else if (args.length == 2) {
                 if (args[0].equalsIgnoreCase("delete") && player.hasPermission("morecrafting.delete")) {
-                    //TODO CHECK THE NAME
-                    String name = args[1];
-                } else if (args[0].equalsIgnoreCase("show") && player.hasPermission("morecrafting.show")) {
-                    //TODO CHECK THE NAME
                     String name = args[1];
 
-                    if(MoreCrafting.getInstance().getRecipeManager().getRecipeByName(name) == null) {
+                    if (MoreCrafting.getInstance().getRecipeManager().getRecipeByName(name) == null) {
+                        player.sendMessage(MessageTranslator.getTranslatedMessage("recipe-not-exist").replace("{Name}", name));
+                        return true;
+                    }
+
+                    if (MoreCrafting.getInstance().getRecipeManager().deleteRecipe(name)) {
+                        player.sendMessage(MessageTranslator.getTranslatedMessage("delete-successful").replace("{Name}", name));
+                    } else {
+                        player.sendMessage(MessageTranslator.getTranslatedMessage("delete-not-successful").replace("{Name}", name));
+                    }
+                } else if (args[0].equalsIgnoreCase("show") && player.hasPermission("morecrafting.show")) {
+                    String name = args[1];
+
+                    if (MoreCrafting.getInstance().getRecipeManager().getRecipeByName(name) == null) {
                         player.sendMessage(MessageTranslator.getTranslatedMessage("recipe-not-exist").replace("{Name}", name));
                         return true;
                     }

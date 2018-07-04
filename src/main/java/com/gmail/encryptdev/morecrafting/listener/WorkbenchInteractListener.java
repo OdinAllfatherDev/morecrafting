@@ -36,6 +36,7 @@ public class WorkbenchInteractListener implements Listener {
             if (event.getClickedBlock().hasMetadata(MoreCrafting.CRAFTING_META_DATA)) {
                 event.setCancelled(true);
                 AbstractInventory.openInventory(player, new WorkbenchInventory(true));
+                notPlace.add(player);
             }
 
         }

@@ -1,10 +1,12 @@
 package com.gmail.encryptdev.morecrafting.listener;
 
 import com.gmail.encryptdev.morecrafting.MoreCrafting;
+import com.gmail.encryptdev.morecrafting.event.APICraftItemEvent;
 import com.gmail.encryptdev.morecrafting.recipe.RecipeManager;
 import com.gmail.encryptdev.morecrafting.recipe.recipes.RecipeShaped;
 import com.gmail.encryptdev.morecrafting.recipe.recipes.RecipeShapeless;
 import com.gmail.encryptdev.morecrafting.util.MessageTranslator;
+import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -56,6 +58,8 @@ public class CraftingListener implements Listener {
                                 player.sendMessage(MessageTranslator.getTranslatedMessage("crafted-item").replace("{Name}", output.hasItemMeta() ?
                                         output.getItemMeta().getDisplayName() : MoreCrafting.makeEnumNormal(output.getType())));
                             }
+
+                            Bukkit.getPluginManager().callEvent(new APICraftItemEvent(player, shaped));
                         }
 
                         RecipeShapeless shapeless = recipeManager.findShapelessRecipe(event.getInventory());
@@ -76,6 +80,7 @@ public class CraftingListener implements Listener {
                                 player.sendMessage(MessageTranslator.getTranslatedMessage("crafted-item").replace("{Name}", output.hasItemMeta() ?
                                         output.getItemMeta().getDisplayName() : MoreCrafting.makeEnumNormal(output.getType())));
                             }
+                            Bukkit.getPluginManager().callEvent(new APICraftItemEvent(player, shapeless));
 
                         }
 

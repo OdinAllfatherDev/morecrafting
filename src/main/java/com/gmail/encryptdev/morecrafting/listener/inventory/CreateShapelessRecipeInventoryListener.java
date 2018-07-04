@@ -41,7 +41,7 @@ public class CreateShapelessRecipeInventoryListener implements Listener {
                             return;
                         }
                         List<ItemStack> items = recipeManager.getRecipeScanner().scanShapelessShape(event.getInventory());
-                        if(items.isEmpty()) {
+                        if (items.isEmpty()) {
                             event.getInventory().setItem(51, ItemCreator.getItem(Material.BARRIER,
                                     MessageTranslator.getTranslatedItemName("set-input-item")));
                             return;

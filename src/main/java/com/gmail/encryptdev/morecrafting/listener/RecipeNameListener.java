@@ -1,10 +1,12 @@
 package com.gmail.encryptdev.morecrafting.listener;
 
+import com.gmail.encryptdev.morecrafting.event.APICreateRecipeEvent;
 import com.gmail.encryptdev.morecrafting.recipe.RecipeManager;
 import com.gmail.encryptdev.morecrafting.recipe.recipes.RecipeFurnace;
 import com.gmail.encryptdev.morecrafting.recipe.recipes.RecipeShaped;
 import com.gmail.encryptdev.morecrafting.recipe.recipes.RecipeShapeless;
 import com.gmail.encryptdev.morecrafting.util.MessageTranslator;
+import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -46,10 +48,13 @@ public class RecipeNameListener implements Listener {
             Map<Integer, ItemStack> shapeItems = recipeManager.getNameTable().get(player, RecipeManager.SHAPED).getShapeItems();
             ItemStack output = recipeManager.getNameTable().get(player, RecipeManager.SHAPED).getOutput();
 
-            recipeManager.addRecipe(new RecipeShaped(message, output).setFinalRecipeMap(shapeItems));
+            RecipeShaped recipeShaped = new RecipeShaped(message, output).setFinalRecipeMap(shapeItems);
+
+            recipeManager.addRecipe(recipeShaped);
             player.sendMessage(MessageTranslator.getTranslatedMessage("added-recipe").replace("{Name}", message));
 
             recipeManager.getNameTable().remove(player, RecipeManager.SHAPED);
+            Bukkit.getPluginManager().callEvent(new APICreateRecipeEvent(player, recipeShaped));
         } else if (recipeManager.getNameTable().contains(player, RecipeManager.SHAPELESS)) {
             event.setCancelled(true);
             String message = event.getMessage();
@@ -68,9 +73,13 @@ public class RecipeNameListener implements Listener {
             List<ItemStack> items = recipeManager.getNameTable().get(player, RecipeManager.SHAPELESS).getItems();
             ItemStack output = recipeManager.getNameTable().get(player, RecipeManager.SHAPELESS).getOutput();
 
-            recipeManager.addRecipe(new RecipeShapeless(message, output).setIngredients(items));
+            RecipeShapeless recipeShapeless = new RecipeShapeless(message, output).setIngredients(items);
+
+            recipeManager.addRecipe(recipeShapeless);
             player.sendMessage(MessageTranslator.getTranslatedMessage("added-recipe").replace("{Name}", message));
             recipeManager.getNameTable().remove(player, RecipeManager.SHAPELESS);
+
+            Bukkit.getPluginManager().callEvent(new APICreateRecipeEvent(player, recipeShapeless));
         } else if (recipeManager.getNameTable().contains(player, RecipeManager.FURNACE)) {
             event.setCancelled(true);
             String message = event.getMessage();
@@ -89,9 +98,12 @@ public class RecipeNameListener implements Listener {
             ItemStack output = recipeManager.getNameTable().get(player, RecipeManager.FURNACE).getOutput();
             float experience = recipeManager.getNameTable().get(player, RecipeManager.FURNACE).getExperince();
 
-            recipeManager.addRecipe(new RecipeFurnace(message, output).setInput(input).setExperience(experience));
+            RecipeFurnace furnaceRecipe = new RecipeFurnace(message, output).setInput(input).setExperience(experience);
+
+            recipeManager.addRecipe(furnaceRecipe);
             player.sendMessage(MessageTranslator.getTranslatedMessage("added-recipe").replace("{Name}", message));
             recipeManager.getNameTable().remove(player, RecipeManager.FURNACE);
+            Bukkit.getPluginManager().callEvent(new APICreateRecipeEvent(player, furnaceRecipe));
         }
 
     }

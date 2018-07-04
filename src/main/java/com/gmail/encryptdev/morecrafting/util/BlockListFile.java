@@ -17,6 +17,8 @@ import java.util.List;
 
 /**
  * Created by EncryptDev
+ *
+ * This class represents a file, and manage the workbench blocks
  */
 public class BlockListFile {
 
@@ -34,6 +36,9 @@ public class BlockListFile {
         this.configuration = YamlConfiguration.loadConfiguration(this.file);
     }
 
+    /**
+     * This Method, load all blocks from the file.
+     */
     public void loadAll() {
         List<String> list = configuration.getStringList("locations");
         if(list == null)
@@ -58,6 +63,11 @@ public class BlockListFile {
         }
     }
 
+    /**
+     * This Method, add only one block to the list.
+     * @param location
+     * @param player
+     */
     public void addBlock(Location location, Player player) {
         List<String> list = configuration.getStringList("locations");
         if(list == null)
@@ -69,6 +79,10 @@ public class BlockListFile {
         save();
     }
 
+    /**
+     * This method remove the block
+     * @param location
+     */
     public void removeBlock(Location location) {
         List<String> list = configuration.getStringList("locations");
         List<String> copy = new ArrayList<>(list);

@@ -44,7 +44,7 @@ public class CreateShapedRecipeInventoryListener implements Listener {
                         }
 
                         Map<Integer, ItemStack> shapeItems = recipeManager.getRecipeScanner().scanShapedShape(event.getInventory());
-                        if(shapeItems.isEmpty()) {
+                        if (shapeItems.isEmpty()) {
                             event.getInventory().setItem(51, ItemCreator.getItem(Material.BARRIER,
                                     MessageTranslator.getTranslatedItemName("set-input-item")));
                             return;

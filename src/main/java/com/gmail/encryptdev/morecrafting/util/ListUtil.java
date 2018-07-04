@@ -8,6 +8,8 @@ import java.util.List;
 
 /**
  * Created by EncryptDev
+ *
+ * Little util, for sort a {@link ItemStack} list
  */
 public class ListUtil {
 

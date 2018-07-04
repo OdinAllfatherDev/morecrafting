@@ -24,7 +24,7 @@
   "item-lore": {
     "shaped-recipe-item-lore": "&7Click to create a recipe with a shape. (Example: Diamond Chestplate)",
     "shapeless-recipe-item-lore": "&7Click to create a recipe with no shape",
-    "furnace-recipe-item": "&7Click to create a furnace recipe"
+    "furnace-recipe-item-lore": "&7Click to create a furnace recipe"
   },
   "crafted-item": "You crafted the item {Name}",
   "recipe-already-name-exist": "&4Recipe with name {Name} already exist",
@@ -33,5 +33,7 @@
   "added-recipe": "You added the recipe {Name}",
   "name-error": "The name length must between 0 and 32",
   "recipe-not-exist": "Recipe with name {Name} doesn't exist",
-  "list-item-output": "&eOutput: {Item}"
+  "list-item-output": "&eOutput: {Item}",
+  "delete-successful": "You delete the item {Name}",
+  "delete-not-successful": "Can not delete item {Name}"
 }

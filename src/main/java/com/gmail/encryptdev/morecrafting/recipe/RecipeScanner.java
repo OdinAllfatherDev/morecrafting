@@ -11,6 +11,8 @@ import java.util.Map;
 
 /**
  * Created by EncryptDev
+ *
+ * The recipe scanner, scan the inventory for the items
  */
 public class RecipeScanner {
 

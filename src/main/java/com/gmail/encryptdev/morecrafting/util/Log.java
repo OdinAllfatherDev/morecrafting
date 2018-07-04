@@ -5,6 +5,8 @@ import java.util.logging.Logger;
 
 /**
  * Created by EncryptDev
+ *
+ * This class, manage the logger
  */
 public class Log {
 

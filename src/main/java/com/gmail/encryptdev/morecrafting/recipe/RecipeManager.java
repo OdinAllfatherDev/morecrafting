@@ -33,6 +33,8 @@ import java.util.*;
 
 /**
  * Created by EncryptDev
+ * <p>
+ * The RecipeManager class, manage the recipes. Add recipes, or remove recipes. Find shapes or scan shapes.
  */
 public class RecipeManager {
 
@@ -125,6 +127,30 @@ public class RecipeManager {
             Log.throwError("Can not add custom recipe with name: " + aRecipe.getName() + " it is not a recipe instance from the plugin",
                     new InstanceNotFoundException());
 
+    }
+
+    public boolean deleteRecipe(String name) {
+        if (getRecipeByName(name) == null)
+            return false;
+
+        ARecipe recipe = getRecipeByName(name);
+        if (recipe instanceof RecipeFurnace) {
+            furnaceRecipes.remove(recipe);
+            this.configuration.set("furnaceRecipes", shapedRecipes);
+            this.saveFile();
+        } else if (recipe instanceof RecipeShapeless) {
+            shapelessRecipes.remove(recipe);
+            this.configuration.set("shapelessRecipes", shapedRecipes);
+            this.saveFile();
+        } else if (recipe instanceof RecipeShaped) {
+            shapedRecipes.remove(recipe);
+            this.configuration.set("shapedRecipes", shapedRecipes);
+            this.saveFile();
+        }
+
+        Log.info("Removed recipe [" + name + "]");
+
+        return true;
     }
 
     public RecipeShaped findShapedRecipe(Inventory inventory) {
