@@ -1,0 +1,5 @@
+#[]=================================================[]
+#[]            MoreCrafting by EncryptDev           []
+#[]=================================================[]
+#If that's true, only the player who placed the workbench can use it
+block-owner: false

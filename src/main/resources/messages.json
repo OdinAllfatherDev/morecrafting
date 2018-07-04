@@ -1,0 +1,37 @@
+{
+  "prefix": "&7[&eMoreCrafting&7] &e",
+  "inventory-names": {
+    "create-shaped-recipe": "&4Create a Shaped Recipe",
+    "create-shapeless-recipe": "&4Create a Shapeless Recipe",
+    "create-furnace-recipe": "&4Create a furnace Recipe",
+    "list-recipes": "&5Recipe List  #{Page}",
+    "show-recipe": "&5Show the recipe",
+    "choose-recipe": "&5Choose your Recipe Type",
+    "counter": "&eSet your experience"
+  },
+  "item-names": {
+    "create-recipe-item": "&7Click to create your recipe",
+    "shaped-recipe-item": "&7Shaped Recipe",
+    "shapeless-recipe-item": "&7Shapeless Recipe",
+    "furnace-recipe-item": "&7Furnace Recipe",
+    "set-output-item": "&4You must set a output item",
+    "set-input-item": "&4You must set a input item",
+    "recipe-already-exist": "&4Recipe with name {Name} already exist",
+    "craft-item": "&aCRAFT",
+    "page-back": "&eBack",
+    "page-next": "&eNext"
+  },
+  "item-lore": {
+    "shaped-recipe-item-lore": "&7Click to create a recipe with a shape. (Example: Diamond Chestplate)",
+    "shapeless-recipe-item-lore": "&7Click to create a recipe with no shape",
+    "furnace-recipe-item": "&7Click to create a furnace recipe"
+  },
+  "crafted-item": "You crafted the item {Name}",
+  "recipe-already-name-exist": "&4Recipe with name {Name} already exist",
+  "block-placed": "You placed the custom workbench",
+  "set-recipe-name": "Write now the recipe name",
+  "added-recipe": "You added the recipe {Name}",
+  "name-error": "The name length must between 0 and 32",
+  "recipe-not-exist": "Recipe with name {Name} doesn't exist",
+  "list-item-output": "&eOutput: {Item}"
+}

@@ -1,0 +1,17 @@
+{
+  "remove-recipes": [
+    "DIAMOND_SWORD:0",
+    "APPLE:0"
+  ],
+  "custom-workbench": {
+    "shape": {
+      "row-1": "WWW",
+      "row-2": "WWW",
+      "row-3": "WWW",
+      "ingredients": [
+        "W:WORKBENCH"
+      ]
+    },
+    "name": "&5&lWorkbench"
+  }
+}

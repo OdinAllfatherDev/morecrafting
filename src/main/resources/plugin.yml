@@ -1,0 +1,8 @@
+name: MoreCrafting
+author: EncryptDev
+main: com.gmail.encryptdev.morecrafting.MoreCrafting
+version: 1.0
+
+commands:
+  mc:
+    aliases: [morecrafting, morec, mcrafting]
