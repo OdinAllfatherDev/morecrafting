@@ -37,13 +37,13 @@ public class CommandMC implements CommandExecutor {
                     }
                 }
             } else if (args.length == 1) {
-                if (args[0].equalsIgnoreCase("create") && player.hasPermission("morecrafting.create")) {
+                if (args[0].equalsIgnoreCase("create") && (player.hasPermission("morecrafting.create") || hasStarPermission(player))) {
                     AbstractInventory.openInventory(player, new ChooseRecipeInventory());
-                } else if (args[0].equalsIgnoreCase("list") && player.hasPermission("morecrafting.list")) {
+                } else if (args[0].equalsIgnoreCase("list") && (player.hasPermission("morecrafting.list") || hasStarPermission(player))) {
                     AbstractInventory.openInventory(player, new ListRecipesInventory(1));
                 }
             } else if (args.length == 2) {
-                if (args[0].equalsIgnoreCase("delete") && player.hasPermission("morecrafting.delete")) {
+                if (args[0].equalsIgnoreCase("delete") && (player.hasPermission("morecrafting.delete") || hasStarPermission(player))) {
                     String name = args[1];
 
                     if (MoreCrafting.getInstance().getRecipeManager().getRecipeByName(name) == null) {
@@ -56,7 +56,7 @@ public class CommandMC implements CommandExecutor {
                     } else {
                         player.sendMessage(MessageTranslator.getTranslatedMessage("delete-not-successful").replace("{Name}", name));
                     }
-                } else if (args[0].equalsIgnoreCase("show") && player.hasPermission("morecrafting.show")) {
+                } else if (args[0].equalsIgnoreCase("show") && (player.hasPermission("morecrafting.show") || hasStarPermission(player))) {
                     String name = args[1];
 
                     if (MoreCrafting.getInstance().getRecipeManager().getRecipeByName(name) == null) {
