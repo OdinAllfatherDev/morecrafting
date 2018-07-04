@@ -34,57 +34,58 @@ public class CraftingListener implements Listener {
             Player player = (Player) event.getWhoClicked();
             if (event.getCurrentItem() != null)
                 if (event.getCurrentItem().hasItemMeta()) {
-                    if (event.getCurrentItem().getItemMeta().getDisplayName().equals("§0"))
-                        event.setCancelled(true);
-                    else if (event.getCurrentItem().getItemMeta().getDisplayName().equals(MessageTranslator.getTranslatedItemName("craft-item"))) {
-                        event.setCancelled(true);
+                    if (event.getCurrentItem().getItemMeta().getDisplayName() != null)
+                        if (event.getCurrentItem().getItemMeta().getDisplayName().equals("§0"))
+                            event.setCancelled(true);
+                        else if (event.getCurrentItem().getItemMeta().getDisplayName().equals(MessageTranslator.getTranslatedItemName("craft-item"))) {
+                            event.setCancelled(true);
 
-                        RecipeShaped shaped = recipeManager.findShapedRecipe(event.getInventory());
-                        if (shaped != null && shaped.canCraft(event.getInventory())) {
-                            ItemStack output = shaped.getOutput().clone();
-                            ItemStack invOutput = event.getInventory().getItem(53);
+                            RecipeShaped shaped = recipeManager.findShapedRecipe(event.getInventory());
+                            if (shaped != null && shaped.canCraft(event.getInventory())) {
+                                ItemStack output = shaped.getOutput().clone();
+                                ItemStack invOutput = event.getInventory().getItem(53);
 
-                            if (invOutput == null) {
-                                event.getInventory().setItem(53, output);
-                                shaped.removeItems(event.getInventory());
-                                player.sendMessage(MessageTranslator.getTranslatedMessage("crafted-item").replace("{Name}", output.hasItemMeta() ?
-                                        output.getItemMeta().getDisplayName() : MoreCrafting.makeEnumNormal(output.getType())));
-                            } else {
+                                if (invOutput == null) {
+                                    event.getInventory().setItem(53, output);
+                                    shaped.removeItems(event.getInventory());
+                                    player.sendMessage(MessageTranslator.getTranslatedMessage("crafted-item").replace("{Name}", output.hasItemMeta() ?
+                                            output.getItemMeta().getDisplayName() : MoreCrafting.makeEnumNormal(output.getType())));
+                                } else {
 
-                                int newAmount = invOutput.getAmount() + output.getAmount();
-                                output.setAmount(newAmount);
-                                event.getInventory().setItem(53, output);
-                                shaped.removeItems(event.getInventory());
-                                player.sendMessage(MessageTranslator.getTranslatedMessage("crafted-item").replace("{Name}", output.hasItemMeta() ?
-                                        output.getItemMeta().getDisplayName() : MoreCrafting.makeEnumNormal(output.getType())));
+                                    int newAmount = invOutput.getAmount() + output.getAmount();
+                                    output.setAmount(newAmount);
+                                    event.getInventory().setItem(53, output);
+                                    shaped.removeItems(event.getInventory());
+                                    player.sendMessage(MessageTranslator.getTranslatedMessage("crafted-item").replace("{Name}", output.hasItemMeta() ?
+                                            output.getItemMeta().getDisplayName() : MoreCrafting.makeEnumNormal(output.getType())));
+                                }
+
+                                Bukkit.getPluginManager().callEvent(new APICraftItemEvent(player, shaped));
                             }
 
-                            Bukkit.getPluginManager().callEvent(new APICraftItemEvent(player, shaped));
-                        }
+                            RecipeShapeless shapeless = recipeManager.findShapelessRecipe(event.getInventory());
+                            if (shapeless != null && shapeless.canCraft(event.getInventory())) {
+                                ItemStack output = shapeless.getOutput().clone();
+                                ItemStack invOutput = event.getInventory().getItem(53);
 
-                        RecipeShapeless shapeless = recipeManager.findShapelessRecipe(event.getInventory());
-                        if (shapeless != null && shapeless.canCraft(event.getInventory())) {
-                            ItemStack output = shapeless.getOutput().clone();
-                            ItemStack invOutput = event.getInventory().getItem(53);
+                                if (invOutput == null) {
+                                    event.getInventory().setItem(53, output);
+                                    shapeless.removeItems(event.getInventory());
+                                    player.sendMessage(MessageTranslator.getTranslatedMessage("crafted-item").replace("{Name}", output.hasItemMeta() ?
+                                            output.getItemMeta().getDisplayName() : MoreCrafting.makeEnumNormal(output.getType())));
+                                } else {
+                                    int newAmount = invOutput.getAmount() + output.getAmount();
+                                    output.setAmount(newAmount);
+                                    event.getInventory().setItem(53, output);
+                                    shapeless.removeItems(event.getInventory());
+                                    player.sendMessage(MessageTranslator.getTranslatedMessage("crafted-item").replace("{Name}", output.hasItemMeta() ?
+                                            output.getItemMeta().getDisplayName() : MoreCrafting.makeEnumNormal(output.getType())));
+                                }
+                                Bukkit.getPluginManager().callEvent(new APICraftItemEvent(player, shapeless));
 
-                            if(invOutput == null) {
-                                event.getInventory().setItem(53, output);
-                                shapeless.removeItems(event.getInventory());
-                                player.sendMessage(MessageTranslator.getTranslatedMessage("crafted-item").replace("{Name}", output.hasItemMeta() ?
-                                        output.getItemMeta().getDisplayName() : MoreCrafting.makeEnumNormal(output.getType())));
-                            } else {
-                                int newAmount = invOutput.getAmount() + output.getAmount();
-                                output.setAmount(newAmount);
-                                event.getInventory().setItem(53, output);
-                                shapeless.removeItems(event.getInventory());
-                                player.sendMessage(MessageTranslator.getTranslatedMessage("crafted-item").replace("{Name}", output.hasItemMeta() ?
-                                        output.getItemMeta().getDisplayName() : MoreCrafting.makeEnumNormal(output.getType())));
                             }
-                            Bukkit.getPluginManager().callEvent(new APICraftItemEvent(player, shapeless));
 
                         }
-
-                    }
                 }
         }
     }

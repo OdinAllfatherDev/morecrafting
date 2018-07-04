@@ -33,35 +33,36 @@ public class CreateFurnaceRecipeInventoryListener implements Listener {
 
             if (itemStack != null)
                 if (itemStack.hasItemMeta())
-                    if (itemStack.getItemMeta().getDisplayName().equals("§0"))
-                        event.setCancelled(true);
-                    else if (itemStack.getItemMeta().getDisplayName().equals(MessageTranslator.getTranslatedItemName("create-recipe-item"))) {
-                        event.setCancelled(true);
-                        if (event.getInventory().getItem(0) == null) {
-                            event.getInventory().setItem(16, ItemCreator.getItem(Material.BARRIER,
-                                    MessageTranslator.getTranslatedItemName("set-input-item")));
-                            return;
-                        }
-                        if (event.getInventory().getItem(8) == null) {
-                            event.getInventory().setItem(16, ItemCreator.getItem(Material.BARRIER,
-                                    MessageTranslator.getTranslatedItemName("set-output-item")));
-                            return;
-                        }
+                    if (itemStack.getItemMeta().getDisplayName() != null)
+                        if (itemStack.getItemMeta().getDisplayName().equals("§0"))
+                            event.setCancelled(true);
+                        else if (itemStack.getItemMeta().getDisplayName().equals(MessageTranslator.getTranslatedItemName("create-recipe-item"))) {
+                            event.setCancelled(true);
+                            if (event.getInventory().getItem(0) == null) {
+                                event.getInventory().setItem(16, ItemCreator.getItem(Material.BARRIER,
+                                        MessageTranslator.getTranslatedItemName("set-input-item")));
+                                return;
+                            }
+                            if (event.getInventory().getItem(8) == null) {
+                                event.getInventory().setItem(16, ItemCreator.getItem(Material.BARRIER,
+                                        MessageTranslator.getTranslatedItemName("set-output-item")));
+                                return;
+                            }
 
-                        ItemStack input = event.getInventory().getItem(0);
-                        ItemStack output = event.getInventory().getItem(8);
+                            ItemStack input = event.getInventory().getItem(0);
+                            ItemStack output = event.getInventory().getItem(8);
 
-                        RecipeFurnace furnaceRecipe = recipeManager.findFurnaceRecipe(output, input);
-                        if (furnaceRecipe == null) {
-                            event.getInventory().setItem(16, ItemCreator.getItem(Material.STAINED_GLASS_PANE, "§0", 1, (byte) 10));
-                            AbstractInventory.openInventory(player, new CounterInventory());
-                            recipeManager.getNameTable().put(player, RecipeManager.FURNACE, new HelpStorage(output, input));
-                        } else {
-                            event.getInventory().setItem(16, ItemCreator.getItem(Material.BARRIER,
-                                    MessageTranslator.getTranslatedItemName("recipe-already-exist")));
+                            RecipeFurnace furnaceRecipe = recipeManager.findFurnaceRecipe(output, input);
+                            if (furnaceRecipe == null) {
+                                event.getInventory().setItem(16, ItemCreator.getItem(Material.STAINED_GLASS_PANE, "§0", 1, (byte) 10));
+                                AbstractInventory.openInventory(player, new CounterInventory());
+                                recipeManager.getNameTable().put(player, RecipeManager.FURNACE, new HelpStorage(output, input));
+                            } else {
+                                event.getInventory().setItem(16, ItemCreator.getItem(Material.BARRIER,
+                                        MessageTranslator.getTranslatedItemName("recipe-already-exist")));
+                            }
+
                         }
-
-                    }
 
         }
     }

@@ -47,6 +47,8 @@ public class ListRecipesInventory extends AbstractInventory {
                 SUB_LISTS.add(allItems.subList(0, allItems.size()));
             }
 
+            fill();
+
             for (int i = 0; i < SUB_LISTS.get(page - 1).size(); i++) {
                 bukkitInventory.setItem(i, SUB_LISTS.get(page - 1).get(i));
             }

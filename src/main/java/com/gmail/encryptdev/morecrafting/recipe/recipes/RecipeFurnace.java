@@ -21,7 +21,8 @@ public class RecipeFurnace extends ARecipe {
     public RecipeFurnace(Map<String, Object> map) {
         super((String) map.get("name"), (ItemStack) map.get("output"));
         this.input = (ItemStack) map.get("input");
-        this.experience = (float) map.get("experience");
+        double de = (double) map.get("experience");
+        this.experience = (float) de;
     }
 
     public RecipeFurnace setExperience(float experience) {
