@@ -10,6 +10,7 @@ import com.gmail.encryptdev.morecrafting.recipe.recipes.RecipeShaped;
 import com.gmail.encryptdev.morecrafting.recipe.recipes.RecipeShapeless;
 import com.gmail.encryptdev.morecrafting.util.BlockListFile;
 import com.gmail.encryptdev.morecrafting.util.Log;
+import org.bukkit.Bukkit;
 import org.bukkit.configuration.serialization.ConfigurationSerialization;
 import org.bukkit.plugin.java.JavaPlugin;
 
@@ -28,6 +29,7 @@ public class MoreCrafting extends JavaPlugin {
     private JsonLoader jsonLoader;
     private RecipeManager recipeManager;
     private BlockListFile blockListFile;
+    private UpdateChecker updateChecker;
 
     @Override
     public void onEnable() {
@@ -53,16 +55,26 @@ public class MoreCrafting extends JavaPlugin {
         this.blockListFile = new BlockListFile();
         this.blockListFile.loadAll();
 
+        this.updateChecker = new UpdateChecker();
+        this.updateChecker.check();
+
         this.loadListener();
+
+        if(this.updateChecker.isAvailable()) {
+            Bukkit.getConsoleSender().sendMessage("§6§lMoreCrafting >> §aA update is available");
+        }
 
         getCommand("mc").setExecutor(new CommandMC());
 
         Log.info("Plugin enabled");
         Log.info("Developer: EncryptDev");
         Log.info("Version: " + getDescription().getVersion());
+
+
     }
 
     private void loadListener() {
+        getServer().getPluginManager().registerEvents(updateChecker, this);
         getServer().getPluginManager().registerEvents(new RemovedRecipeListener(recipeManager), this);
         getServer().getPluginManager().registerEvents(new WorkbenchPlaceListener(jsonLoader), this);
         getServer().getPluginManager().registerEvents(new RecipeNameListener(recipeManager), this);

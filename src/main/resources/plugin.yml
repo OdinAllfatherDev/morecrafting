@@ -1,7 +1,7 @@
 name: MoreCrafting
 author: EncryptDev
 main: com.gmail.encryptdev.morecrafting.MoreCrafting
-version: 1.0
+version: 1.1
 
 commands:
   mc:

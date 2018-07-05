@@ -100,7 +100,7 @@ public class RecipeShaped extends ARecipe {
         return this;
     }
 
-    public RecipeShaped setIngedient(char c, ItemStack itemStack) {
+    public RecipeShaped setIngredient(char c, ItemStack itemStack) {
         ingredients.put(c, itemStack);
         return this;
     }

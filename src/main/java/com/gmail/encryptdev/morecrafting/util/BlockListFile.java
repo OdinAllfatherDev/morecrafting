@@ -92,7 +92,7 @@ public class BlockListFile {
             int y = (int) location.getY();
             int z = (int) location.getZ();
             String[] data = str.split(":");
-            if (Integer.parseInt(data[0]) == x && Integer.parseInt(data[1]) == y && Integer.parseInt(data[2]) == z) {
+            if (Integer.parseInt(data[1]) == x && Integer.parseInt(data[2]) == y && Integer.parseInt(data[3]) == z) {
                 list.remove(str);
             }
         }

@@ -17,6 +17,9 @@ public class WorkbenchBreakListener implements Listener {
         if (event.getBlock().getType() == Material.WORKBENCH) {
             if (event.getBlock().hasMetadata(MoreCrafting.CRAFTING_META_DATA)) {
                 Location location = event.getBlock().getLocation();
+                event.getBlock().removeMetadata(MoreCrafting.CRAFTING_META_DATA, MoreCrafting.getInstance());
+                if(event.getBlock().hasMetadata(MoreCrafting.BLOCK_OWNER_META_DATA))
+                    event.getBlock().removeMetadata(MoreCrafting.BLOCK_OWNER_META_DATA, MoreCrafting.getInstance());
                 MoreCrafting.getInstance().getBlockListFile().removeBlock(location);
             }
         }
