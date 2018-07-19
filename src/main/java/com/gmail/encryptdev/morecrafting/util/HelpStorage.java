@@ -7,7 +7,7 @@ import java.util.Map;
 
 /**
  * Created by EncryptDev
- *
+ * <p>
  * This class, help to store any data
  */
 public class HelpStorage {
@@ -16,7 +16,6 @@ public class HelpStorage {
     private Map<Integer, ItemStack> shapeItems;
     private List<ItemStack> items;
     private ItemStack input;
-    private float experince;
 
     public HelpStorage(ItemStack output, Map<Integer, ItemStack> shapeItems) {
         this.output = output;
@@ -39,14 +38,6 @@ public class HelpStorage {
 
     public ItemStack getInput() {
         return input;
-    }
-
-    public float getExperince() {
-        return experince;
-    }
-
-    public void setExperince(float experince) {
-        this.experince = experince;
     }
 
     public ItemStack getOutput() {

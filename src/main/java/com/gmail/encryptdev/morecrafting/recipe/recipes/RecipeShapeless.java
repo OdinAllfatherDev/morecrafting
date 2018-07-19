@@ -1,6 +1,7 @@
 package com.gmail.encryptdev.morecrafting.recipe.recipes;
 
 import com.gmail.encryptdev.morecrafting.MoreCrafting;
+import com.gmail.encryptdev.morecrafting.nbt.NBTItemStack;
 import com.gmail.encryptdev.morecrafting.util.ListUtil;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
@@ -32,15 +33,29 @@ public class RecipeShapeless extends ARecipe {
         List<ItemStack> sortedItems = ListUtil.sort(items);
         List<ItemStack> sortedIngredients = ListUtil.sort(ingredients);
 
-        if(sortedItems.size() != sortedIngredients.size())
+        if (sortedItems.size() != sortedIngredients.size())
             return false;
 
         for (int i = 0; i < sortedIngredients.size(); i++) {
             ItemStack ingre = sortedIngredients.get(i);
             ItemStack item = sortedItems.get(i);
 
-            if (item.getType() == ingre.getType() && item.getAmount() >= ingre.getAmount() && item.getDurability() == ingre.getDurability())
-                counter += 1;
+            boolean nbt = false;
+
+            if(NBTItemStack.hasNBTTag(ingre))
+                if(NBTItemStack.hasNBTTag(item))
+                    nbt = true;
+                    NBTItemStack nbtItemStack = new NBTItemStack(ingre);
+                    NBTItemStack other = new NBTItemStack(item);
+                    if(nbtItemStack.isSimilar(other))
+                        counter += 1;
+
+
+
+            if(!nbt)
+                if (item.getType() == ingre.getType() && item.getAmount() >= ingre.getAmount() && item.getDurability() == ingre.getDurability())
+                    counter += 1;
+
         }
 
         return counter == ingredients.size();

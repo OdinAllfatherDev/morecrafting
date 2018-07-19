@@ -4,6 +4,7 @@ import com.gmail.encryptdev.morecrafting.command.CommandMC;
 import com.gmail.encryptdev.morecrafting.json.JsonLoader;
 import com.gmail.encryptdev.morecrafting.listener.*;
 import com.gmail.encryptdev.morecrafting.listener.inventory.*;
+import com.gmail.encryptdev.morecrafting.nbt.Reflection;
 import com.gmail.encryptdev.morecrafting.recipe.RecipeManager;
 import com.gmail.encryptdev.morecrafting.recipe.recipes.RecipeFurnace;
 import com.gmail.encryptdev.morecrafting.recipe.recipes.RecipeShaped;
@@ -25,6 +26,7 @@ public class MoreCrafting extends JavaPlugin {
     public static final String BLOCK_OWNER_META_DATA = "more_crafting_block_owner";
 
     private static MoreCrafting instance;
+    private static Reflection.NMSVersion nmsVersion;
 
     private JsonLoader jsonLoader;
     private RecipeManager recipeManager;
@@ -34,6 +36,10 @@ public class MoreCrafting extends JavaPlugin {
     @Override
     public void onEnable() {
         instance = this;
+
+        String version = getServer().getClass().getPackage().getName().replace(".", ",").split(",")[3];
+        nmsVersion = Reflection.NMSVersion.getNMSVersion(version);
+        Log.info("NMSVersion found. You play on version: " + nmsVersion.getVersion());
 
         ConfigurationSerialization.registerClass(RecipeShapeless.class);
         ConfigurationSerialization.registerClass(RecipeShaped.class);
@@ -60,7 +66,7 @@ public class MoreCrafting extends JavaPlugin {
 
         this.loadListener();
 
-        if(this.updateChecker.isAvailable()) {
+        if (this.updateChecker.isAvailable()) {
             Bukkit.getConsoleSender().sendMessage("§6§lMoreCrafting >> §aA update is available");
         }
 
@@ -84,7 +90,6 @@ public class MoreCrafting extends JavaPlugin {
         getServer().getPluginManager().registerEvents(new CraftingListener(recipeManager), this);
         getServer().getPluginManager().registerEvents(new CreateShapelessRecipeInventoryListener(recipeManager), this);
         getServer().getPluginManager().registerEvents(new CreateFurnaceRecipeInventoryListener(recipeManager), this);
-        getServer().getPluginManager().registerEvents(new CounterInventoryListener(recipeManager), this);
         getServer().getPluginManager().registerEvents(new RecipeListInventoryListener(recipeManager), this);
         getServer().getPluginManager().registerEvents(new ShowRecipeListener(), this);
         getServer().getPluginManager().registerEvents(new WorkbenchBreakListener(), this);
@@ -104,6 +109,10 @@ public class MoreCrafting extends JavaPlugin {
 
     public BlockListFile getBlockListFile() {
         return blockListFile;
+    }
+
+    public static Reflection.NMSVersion getNmsVersion() {
+        return nmsVersion;
     }
 
     public static String makeEnumNormal(Enum enumValue) {

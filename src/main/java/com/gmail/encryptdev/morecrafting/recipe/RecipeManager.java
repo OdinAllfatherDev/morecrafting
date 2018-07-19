@@ -102,7 +102,6 @@ public class RecipeManager {
             this.saveFile();
 
             FurnaceRecipe recipe = new FurnaceRecipe(recipeFurnace.getOutput(), recipeFurnace.getInput().getType());
-            recipe.setExperience(recipeFurnace.getExperience());
             Bukkit.addRecipe(recipe);
 
             Log.info("Added furnace recipe [" + aRecipe.getName() + "]");
@@ -201,6 +200,11 @@ public class RecipeManager {
         this.furnaceRecipes.addAll((List<RecipeFurnace>) configuration.get("furnaceRecipes"));
         this.shapedRecipes.addAll((List<RecipeShaped>) configuration.get("shapedRecipes"));
         this.shapelessRecipes.addAll((List<RecipeShapeless>) configuration.get("shapelessRecipes"));
+
+        for (RecipeFurnace recipeFurnace : furnaceRecipes) {
+            FurnaceRecipe furnacer = new FurnaceRecipe(recipeFurnace.getOutput(), recipeFurnace.getInput().getType());
+            Bukkit.addRecipe(furnacer);
+        }
 
     }
 

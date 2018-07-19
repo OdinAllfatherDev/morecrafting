@@ -1,6 +1,7 @@
 package com.gmail.encryptdev.morecrafting.recipe.recipes;
 
 import com.gmail.encryptdev.morecrafting.MoreCrafting;
+import com.gmail.encryptdev.morecrafting.nbt.NBTItemStack;
 import com.gmail.encryptdev.morecrafting.recipe.RecipeManager;
 import com.gmail.encryptdev.morecrafting.util.ItemCreator;
 import com.gmail.encryptdev.morecrafting.util.Log;
@@ -45,14 +46,26 @@ public class RecipeShaped extends ARecipe {
 
         for (int key : finalRecipeMap.keySet()) {
             ItemStack needed = finalRecipeMap.get(key);
-
             ItemStack inInv = other.get(key);
 
-            if(needed == null || inInv == null)
+            if (needed == null || inInv == null)
                 continue;
 
-            if (needed.getType() == inInv.getType() && inInv.getAmount() >= needed.getAmount() && inInv.getDurability() == needed.getDurability())
-                index += 1;
+            boolean nbt = false;
+
+            if (NBTItemStack.hasNBTTag(needed))
+                if (NBTItemStack.hasNBTTag(needed))
+                    nbt = true;
+                    NBTItemStack nbtItemStack = new NBTItemStack(needed);
+                    NBTItemStack inInvNbtItemStack = new NBTItemStack(inInv);
+                    if (nbtItemStack.isSimilar(inInvNbtItemStack))
+                        index += 1;
+
+
+
+            if (!nbt)
+                if (needed.getType() == inInv.getType() && inInv.getAmount() >= needed.getAmount() && inInv.getDurability() == needed.getDurability())
+                    index += 1;
 
         }
         return index == finalRecipeMap.size();

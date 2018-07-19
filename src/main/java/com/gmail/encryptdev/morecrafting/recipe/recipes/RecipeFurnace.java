@@ -12,7 +12,6 @@ import java.util.Map;
 public class RecipeFurnace extends ARecipe {
 
     private ItemStack input;
-    private float experience;
 
     public RecipeFurnace(String name, ItemStack output) {
         super(name, output);
@@ -21,22 +20,11 @@ public class RecipeFurnace extends ARecipe {
     public RecipeFurnace(Map<String, Object> map) {
         super((String) map.get("name"), (ItemStack) map.get("output"));
         this.input = (ItemStack) map.get("input");
-        double de = (double) map.get("experience");
-        this.experience = (float) de;
-    }
-
-    public RecipeFurnace setExperience(float experience) {
-        this.experience = experience;
-        return this;
     }
 
     public RecipeFurnace setInput(ItemStack input) {
         this.input = input;
         return this;
-    }
-
-    public float getExperience() {
-        return experience;
     }
 
     @Override
@@ -57,7 +45,6 @@ public class RecipeFurnace extends ARecipe {
         Map<String, Object> map = new HashMap<>();
         map.put("name", getName());
         map.put("output", getOutput());
-        map.put("experience", experience);
         map.put("input", input);
         return map;
     }

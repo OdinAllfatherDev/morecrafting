@@ -96,10 +96,8 @@ public class RecipeNameListener implements Listener {
 
             ItemStack input = recipeManager.getNameTable().get(player, RecipeManager.FURNACE).getInput();
             ItemStack output = recipeManager.getNameTable().get(player, RecipeManager.FURNACE).getOutput();
-            float experience = recipeManager.getNameTable().get(player, RecipeManager.FURNACE).getExperince();
 
-            RecipeFurnace furnaceRecipe = new RecipeFurnace(message, output).setInput(input).setExperience(experience);
-
+            RecipeFurnace furnaceRecipe = new RecipeFurnace(message, output).setInput(input);
             recipeManager.addRecipe(furnaceRecipe);
             player.sendMessage(MessageTranslator.getTranslatedMessage("added-recipe").replace("{Name}", message));
             recipeManager.getNameTable().remove(player, RecipeManager.FURNACE);

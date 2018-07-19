@@ -1,7 +1,5 @@
 package com.gmail.encryptdev.morecrafting.listener.inventory;
 
-import com.gmail.encryptdev.morecrafting.inventory.AbstractInventory;
-import com.gmail.encryptdev.morecrafting.inventory.CounterInventory;
 import com.gmail.encryptdev.morecrafting.recipe.RecipeManager;
 import com.gmail.encryptdev.morecrafting.recipe.recipes.RecipeFurnace;
 import com.gmail.encryptdev.morecrafting.util.HelpStorage;
@@ -55,7 +53,8 @@ public class CreateFurnaceRecipeInventoryListener implements Listener {
                             RecipeFurnace furnaceRecipe = recipeManager.findFurnaceRecipe(output, input);
                             if (furnaceRecipe == null) {
                                 event.getInventory().setItem(16, ItemCreator.getItem(Material.STAINED_GLASS_PANE, "§0", 1, (byte) 10));
-                                AbstractInventory.openInventory(player, new CounterInventory());
+                                player.closeInventory();
+                                player.sendMessage(MessageTranslator.getTranslatedMessage("set-recipe-name"));
                                 recipeManager.getNameTable().put(player, RecipeManager.FURNACE, new HelpStorage(output, input));
                             } else {
                                 event.getInventory().setItem(16, ItemCreator.getItem(Material.BARRIER,
