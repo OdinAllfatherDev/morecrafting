@@ -14,6 +14,7 @@ import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 /**
  * Created by EncryptDev
@@ -45,13 +46,13 @@ public class BlockListFile {
             list = new ArrayList<>();
         for (String str : list) {
             String[] data = str.split(":");
-            World world = Bukkit.getWorld(data[0]);
+            World world = Bukkit.getWorld(UUID.fromString(data[0]));
             int x = Integer.parseInt(data[1]);
             int y = Integer.parseInt(data[2]);
             int z = Integer.parseInt(data[3]);
             String owner = "";
             if (data.length == 5)
-                owner = data[5];
+                owner = data[4];
             if (world.getBlockAt(x, y, z).getType() == Material.WORKBENCH) {
                 world.getBlockAt(x, y, z).setMetadata(MoreCrafting.CRAFTING_META_DATA,
                         new FixedMetadataValue(MoreCrafting.getInstance(), "CUSTOM-CRAFTER"));
@@ -109,7 +110,7 @@ public class BlockListFile {
     }
 
     private String locationString(Location location) {
-        return location.getWorld().getName() + ":" + (int) location.getX() + ":" + (int) location.getY() + ":" + (int) location.getZ();
+        return location.getWorld().getUID().toString() + ":" + (int) location.getX() + ":" + (int) location.getY() + ":" + (int) location.getZ();
     }
 
 }

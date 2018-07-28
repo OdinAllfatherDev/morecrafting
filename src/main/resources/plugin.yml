@@ -2,7 +2,7 @@ name: MoreCrafting
 author: EncryptDev
 main: com.gmail.encryptdev.morecrafting.MoreCrafting
 version: 1.3
-
+depend: [Multiverse-Core]
 commands:
   mc:
     aliases: [morecrafting, morec, mcrafting]
