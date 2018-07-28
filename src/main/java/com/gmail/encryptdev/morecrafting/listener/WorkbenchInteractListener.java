@@ -5,6 +5,7 @@ import com.gmail.encryptdev.morecrafting.inventory.AbstractInventory;
 import com.gmail.encryptdev.morecrafting.inventory.WorkbenchInventory;
 import com.gmail.encryptdev.morecrafting.util.MessageTranslator;
 import org.bukkit.ChatColor;
+import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -92,7 +93,13 @@ public class WorkbenchInteractListener implements Listener {
                 }
 
                 invContent = Arrays.copyOfRange(invContent, 0, index);
-                player.getInventory().addItem(invContent);
+                for (ItemStack is:invContent) {
+                    if (player.getInventory().firstEmpty() != -1) {
+                        player.getInventory().addItem(invContent);
+                    }else{
+                        player.getWorld().dropItemNaturally(player.getLocation(),is);
+                    }
+                }
 
             }
     }
