@@ -25,17 +25,17 @@ public class WorkbenchPlaceListener implements Listener {
     @EventHandler
     public void on(BlockPlaceEvent event) {
         Player player = event.getPlayer();
-        ItemStack inHand = player.getInventory().getItemInMainHand();
+        ItemStack inHand = MoreCrafting.is1_8() ? player.getItemInHand() : player.getInventory().getItemInMainHand();
 
-        if(inHand != null)
-            if(inHand.hasItemMeta())
-                if(inHand.getItemMeta().hasDisplayName())
-                    if(inHand.getItemMeta().getDisplayName()
+        if (inHand != null)
+            if (inHand.hasItemMeta())
+                if (inHand.getItemMeta().hasDisplayName())
+                    if (inHand.getItemMeta().getDisplayName()
                             .equals(ChatColor.translateAlternateColorCodes('&',
                                     (String) jsonLoader.getRecipeSettingsFile().getJsonObject("custom-workbench").get("name")))) {
                         event.getBlock().setMetadata(MoreCrafting.CRAFTING_META_DATA, new FixedMetadataValue(MoreCrafting.getInstance(), "CUSTOM-CRAFTER"));
 
-                        if(MoreCrafting.getInstance().getConfig().getBoolean("block-owner")) {
+                        if (MoreCrafting.getInstance().getConfig().getBoolean("block-owner")) {
                             event.getBlock().setMetadata(MoreCrafting.BLOCK_OWNER_META_DATA, new FixedMetadataValue(MoreCrafting.getInstance(),
                                     player.getUniqueId().toString()));
                             player.sendMessage(MessageTranslator.getTranslatedMessage("block-placed"));

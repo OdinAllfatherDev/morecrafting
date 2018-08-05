@@ -11,7 +11,7 @@ import java.util.Map;
 
 /**
  * Created by EncryptDev
- *
+ * <p>
  * The recipe scanner, scan the inventory for the items
  */
 public class RecipeScanner {
@@ -19,6 +19,7 @@ public class RecipeScanner {
     public RecipeScanner() {
 
     }
+
 
     public List<ItemStack> scanShapelessShape(Inventory inventory) {
         Validate.notNull(inventory, "can not scan the inventory, the inventory is null");

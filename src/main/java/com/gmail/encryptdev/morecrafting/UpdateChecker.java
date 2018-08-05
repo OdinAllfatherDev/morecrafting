@@ -31,8 +31,8 @@ public class UpdateChecker implements Listener {
 
     @EventHandler
     public void on(PlayerJoinEvent event) {
-        if(event.getPlayer().isOp())
-            if(isAvailable)
+        if (event.getPlayer().isOp())
+            if (isAvailable)
                 event.getPlayer().sendMessage("§5MoreCrafting >> §4A update is available");
     }
 
@@ -49,13 +49,13 @@ public class UpdateChecker implements Listener {
             String raw = new BufferedReader(new InputStreamReader(connection.getInputStream())).readLine();
 
             String remoteVersion;
-            if(raw.contains("-")) {
+            if (raw.contains("-")) {
                 remoteVersion = raw.split("-")[0].trim();
             } else {
                 remoteVersion = raw;
             }
 
-            if(!localVersion.equalsIgnoreCase(remoteVersion))
+            if (!localVersion.equalsIgnoreCase(remoteVersion))
                 return true;
 
         } catch (IOException e) {

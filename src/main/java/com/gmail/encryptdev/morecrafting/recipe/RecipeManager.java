@@ -51,6 +51,7 @@ public class RecipeManager {
     private FileConfiguration configuration;
     private RecipeScanner recipeScanner;
     private Table<Player, Integer, HelpStorage> nameTable;
+    private Map<Player, HelpStorage> tempHelpStorage;
 
     public RecipeManager(JsonLoader jsonLoader) {
         this.jsonLoader = jsonLoader;
@@ -59,6 +60,7 @@ public class RecipeManager {
         this.shapedRecipes = new LinkedList<>();
         this.shapelessRecipes = new LinkedList<>();
         this.recipeScanner = new RecipeScanner();
+        this.tempHelpStorage = new HashMap<>();
         this.nameTable = HashBasedTable.create();
         this.recipeFile = new File(MoreCrafting.getInstance().getDataFolder(), "recipes.yml");
         if (!recipeFile.exists())
@@ -312,6 +314,11 @@ public class RecipeManager {
         for (; itemAmounts > 45; itemAmounts -= 45) page++;
         return page;
     }
+
+    public Map<Player, HelpStorage> getTempHelpStorage() {
+        return tempHelpStorage;
+    }
+
 
     public RecipeScanner getRecipeScanner() {
         return recipeScanner;

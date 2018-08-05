@@ -12,6 +12,7 @@ public class NBTItemStack extends Reflection {
     private Class<?> craftbukkitCraftItemStack = getCraftBukkitClass("CraftItemStack", "inventory");
     private Object nmsStack;
 
+
     public NBTItemStack(ItemStack bukkitItemStack) {
         super(MoreCrafting.getNmsVersion());
         Validate.notNull(bukkitItemStack);

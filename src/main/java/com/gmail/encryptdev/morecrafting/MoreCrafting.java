@@ -25,6 +25,7 @@ public class MoreCrafting extends JavaPlugin {
     public static final String CRAFTING_META_DATA = "more_crafting_crafting_block";
     public static final String BLOCK_OWNER_META_DATA = "more_crafting_block_owner";
 
+
     private static MoreCrafting instance;
     private static Reflection.NMSVersion nmsVersion;
 
@@ -36,7 +37,6 @@ public class MoreCrafting extends JavaPlugin {
     @Override
     public void onEnable() {
         instance = this;
-
         String version = getServer().getClass().getPackage().getName().replace(".", ",").split(",")[3];
         nmsVersion = Reflection.NMSVersion.getNMSVersion(version);
         Log.info("NMSVersion found. You play on version: " + nmsVersion.getVersion());
@@ -65,17 +65,16 @@ public class MoreCrafting extends JavaPlugin {
         this.updateChecker.check();
 
         this.loadListener();
-
         if (this.updateChecker.isAvailable()) {
             Bukkit.getConsoleSender().sendMessage("§6§lMoreCrafting >> §aA update is available");
         }
 
-        getCommand("mc").setExecutor(new CommandMC());
 
         Log.info("Plugin enabled");
         Log.info("Developer: EncryptDev");
         Log.info("Version: " + getDescription().getVersion());
 
+        getCommand("mc").setExecutor(new CommandMC());
 
     }
 
@@ -115,6 +114,10 @@ public class MoreCrafting extends JavaPlugin {
         return nmsVersion;
     }
 
+    public static boolean is1_8() {
+        return nmsVersion == Reflection.NMSVersion.V1_8_R1 || nmsVersion == Reflection.NMSVersion.V1_8_R2 || nmsVersion == Reflection.NMSVersion.V1_8_R3;
+    }
+
     public static String makeEnumNormal(Enum enumValue) {
         String etvStr = enumValue.toString();
         String lowerCase = etvStr.toLowerCase();
@@ -134,4 +137,5 @@ public class MoreCrafting extends JavaPlugin {
         }
         return result;
     }
+
 }

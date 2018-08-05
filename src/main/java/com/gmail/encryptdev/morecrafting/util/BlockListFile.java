@@ -5,6 +5,7 @@ import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.World;
+import org.bukkit.block.Block;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
@@ -13,6 +14,7 @@ import org.bukkit.metadata.FixedMetadataValue;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 
 /**
@@ -46,17 +48,17 @@ public class BlockListFile {
         for (String str : list) {
             String[] data = str.split(":");
             World world = Bukkit.getWorld(data[0]);
-            int x = Integer.parseInt(data[1]);
-            int y = Integer.parseInt(data[2]);
-            int z = Integer.parseInt(data[3]);
             String owner = "";
             if (data.length == 5)
-                owner = data[5];
-            if (world.getBlockAt(x, y, z).getType() == Material.WORKBENCH) {
-                world.getBlockAt(x, y, z).setMetadata(MoreCrafting.CRAFTING_META_DATA,
+                owner = data[4];
+            Block block = getSingleBlock(world, data);
+            if(block == null)
+                continue;
+            if (block.getType() == Material.WORKBENCH) {
+                block.setMetadata(MoreCrafting.CRAFTING_META_DATA,
                         new FixedMetadataValue(MoreCrafting.getInstance(), "CUSTOM-CRAFTER"));
                 if (MoreCrafting.getInstance().getConfig().getBoolean("block-owner") && !owner.equals("")) {
-                    world.getBlockAt(x, y, z).setMetadata(MoreCrafting.BLOCK_OWNER_META_DATA,
+                    block.setMetadata(MoreCrafting.BLOCK_OWNER_META_DATA,
                             new FixedMetadataValue(MoreCrafting.getInstance(), owner));
                 }
             }
@@ -98,6 +100,43 @@ public class BlockListFile {
         }
         configuration.set("locations", list);
         this.save();
+    }
+
+    /**
+     * Get all blocks, from the file
+     * @return - a list, with all blocks
+     */
+    public List<Block> getAllBlocks() {
+        List<String> list = configuration.getStringList("locations");
+        if (list == null)
+            list = new ArrayList<>();
+        List<Block> blocks = new LinkedList<>();
+        for (String str : list) {
+            String[] data = str.split(":");
+            World world = Bukkit.getWorld(data[0]);
+            String owner = "";
+            if (data.length == 5)
+                owner = data[4];
+            Block block = getSingleBlock(world, data);
+            if(block == null)
+                continue;
+            if (block.getType() == Material.WORKBENCH) {
+                block.setMetadata(MoreCrafting.CRAFTING_META_DATA, new FixedMetadataValue(MoreCrafting.getInstance(), "CUSTOM_CRAFTER"));
+                if (MoreCrafting.getInstance().getConfig().getBoolean("block-owner") && !owner.equals("")) {
+                    block.setMetadata(MoreCrafting.BLOCK_OWNER_META_DATA,
+                            new FixedMetadataValue(MoreCrafting.getInstance(), owner));
+                }
+                blocks.add(block);
+            }
+        }
+        return blocks;
+    }
+
+    private Block getSingleBlock(World world, String[] data) {
+        int x = Integer.parseInt(data[1]);
+        int y = Integer.parseInt(data[2]);
+        int z = Integer.parseInt(data[3]);
+        return world.getBlockAt(x, y, z);
     }
 
     public void save() {

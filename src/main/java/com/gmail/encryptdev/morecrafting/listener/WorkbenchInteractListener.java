@@ -80,10 +80,14 @@ public class WorkbenchInteractListener implements Listener {
                     if (itemStack == null)
                         continue;
                     if (itemStack.hasItemMeta()) {
-                        if(itemStack.getItemMeta().getDisplayName() != null) {
+                        if (itemStack.getItemMeta().getDisplayName() != null) {
                             if (itemStack.getItemMeta().getDisplayName().equals("§0"))
                                 continue;
                             if (itemStack.getItemMeta().getDisplayName().equals(MessageTranslator.getTranslatedItemName("craft-item")))
+                                continue;
+                            if (itemStack.getItemMeta().getDisplayName().equals(MessageTranslator.getTranslatedItemName("choose-recipe")))
+                                continue;
+                            if (itemStack.getItemMeta().getDisplayName().equals(MessageTranslator.getTranslatedItemName("auto-crafting")))
                                 continue;
                         }
                     }

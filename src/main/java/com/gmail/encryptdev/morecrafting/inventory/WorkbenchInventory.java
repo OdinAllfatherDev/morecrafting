@@ -44,4 +44,5 @@ public class WorkbenchInventory extends AbstractInventory {
         bukkitInventory.setItem(53, null);
     }
 
+
 }
