@@ -1,6 +1,7 @@
 ##### MoreCrafting
 
 ## About:
+Test
 MoreCrafting is a plugin, where you can create your own custom recipes in a 5x5 Crafting System. You can create a shaped, shapeless or a furnace recipe
 
 ## Features:
